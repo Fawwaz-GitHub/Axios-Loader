@@ -1,0 +1,33 @@
+import Axios from 'axios';
+
+;<div id="loader" className="cover-spin">
+</div>
+
+Axios.interceptors.request.use(
+  function (config) {
+    var div1 = document.createElement('div')
+    div1.setAttribute('class', ' cover-spin')
+    div1.setAttribute('id', 'loader')
+    document.body.appendChild(div1)
+
+    return config
+  },
+  function (error) {
+    const element = document.getElementById('loader')
+    element.remove()
+    return Promise.reject(error)
+  },
+)
+
+Axios.interceptors.response.use(
+  function (response) {
+    const element = document.getElementById('loader')
+    element.remove()
+    return response
+  },
+  function (error) {
+    const element = document.getElementById('loader')
+    element.remove()
+    return Promise.reject(error)
+  },
+)
